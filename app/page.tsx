@@ -1,46 +1,52 @@
+"use client";
 
-'use client';
-
-import { DynamicWidget } from "@/lib/dynamic";
-import { useState, useEffect } from 'react';
-import DynamicMethods from "@/app/components/Methods";
-import './page.css';
-
-const checkIsDarkSchemePreferred = () => {
-  if (typeof window !== 'undefined') {
-    return window.matchMedia?.('(prefers-color-scheme:dark)')?.matches ?? false;
-  }
-  return false;
-};
+import { useState } from "react";
 
 export default function Main() {
-  const [isDarkMode, setIsDarkMode] = useState(checkIsDarkSchemePreferred);
+  const [response, setResponse] = useState(null);
 
-  useEffect(() => {
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = () => setIsDarkMode(checkIsDarkSchemePreferred());
-    
-    darkModeMediaQuery.addEventListener('change', handleChange);
-    return () => darkModeMediaQuery.removeEventListener('change', handleChange);
-  }, []);
+  const sendData = async () => {
+    const data = {
+      version:
+        "00430f0bd52a14f794e379250e0619c3ea882588ad118162e6e2f4391042329d",
+      input: {
+        model: "dev",
+        prompt:
+          "a firedancer dancing in a Japanese tea room with matcha brewing in a teapot",
+        go_fast: false,
+        lora_scale: 1,
+        megapixels: "1",
+        num_outputs: 1,
+        aspect_ratio: "1:1",
+        output_format: "webp",
+        guidance_scale: 3,
+        output_quality: 80,
+        prompt_strength: 0.8,
+        extra_lora_scale: 1,
+        num_inference_steps: 20,
+      },
+    };
+
+    try {
+      const res = await fetch("/api/replicate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+      console.log(result);
+      setResponse(result);
+    } catch (error) {
+      console.error("Error sending data:", error);
+    }
+  };
 
   return (
-    <div className={`container ${isDarkMode ? 'dark' : 'light'}`}>
-      <div className="header">
-        <img className="logo" src={isDarkMode ? "/logo-light.png" : "/logo-dark.png"} alt="dynamic" />
-        <div className="header-buttons">
-          <button className="docs-button" onClick={() => window.open('https://docs.dynamic.xyz', '_blank', 'noopener,noreferrer')}>Docs</button>
-          <button className="get-started" onClick={() => window.open('https://app.dynamic.xyz', '_blank', 'noopener,noreferrer')}>Get started</button>
-        </div>
-      </div>
-      <div className="modal">
-        <DynamicWidget />
-        <DynamicMethods isDarkMode={isDarkMode} />
-      </div>
-      <div className="footer">
-        <div className="footer-text">Made with ❤️ by dynamic</div>
-        <img className="footer-image" src={isDarkMode ? "/image-dark.png" : "/image-light.png"} alt="dynamic" />
-      </div>
-    </div> 
+    <div>
+      <h1>Hello</h1>
+      <button onClick={sendData}>Send Data</button>
+      {response && <pre>{JSON.stringify(response, null, 2)}</pre>}
+    </div>
   );
 }
