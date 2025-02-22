@@ -1,5 +1,5 @@
 {
-  "name": "my-dynamic-project",
+  "name": "music-meme-machine",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,7 +11,12 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.1.7"
+    "next": "15.1.7",
+    "@dynamic-labs/sdk-react-core": "*",
+    "@dynamic-labs/solana": "*",
+    "crypto-browserify": "^3.12.0",
+    "stream-browserify": "^3.0.0",
+    "process": "^0.11.10"
   },
   "devDependencies": {
     "typescript": "^5",
@@ -21,5 +26,12 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "@eslint/eslintrc": "^3"
+  },
+  "browser": {
+    "crypto": false
+  },
+  "overrides": {
+    "rpc-websockets": "7.10.0",
+    "@solana/web3.js": "1.91.6"
   }
 }
