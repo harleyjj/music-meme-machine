@@ -6,6 +6,7 @@ import {
   mintTo,
 } from "@solana/spl-token";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 // Solana Connection Setup
 const connection = new Connection("http://localhost:8899", "confirmed");
@@ -95,7 +96,7 @@ function TokenCreator() {
               onChange={(e) => setTokenName(e.target.value)}
               placeholder="Enter token name"
               required
-              className="text-black"
+              className="text-white"
             />
           </label>
         </div>
@@ -108,17 +109,17 @@ function TokenCreator() {
               onChange={(e) => setTotalSupply(e.target.value)}
               placeholder="Enter total supply"
               required
-              className="text-black"
+              className="text-white"
             />
           </label>
         </div>
-        <button
-          className="border border-white text-white"
+        <Button
+          className="border border-white text-white mt-2"
           type="submit"
           disabled={loading}
         >
           {loading ? "Deploying..." : "Deploy Token"}
-        </button>
+        </Button>
       </form>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
