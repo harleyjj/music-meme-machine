@@ -26,7 +26,11 @@
     "stream-browserify": "^3.0.0",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "3",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "@crossmint/client-sdk-react-ui": "^1.14.9",
+    "next": "15.1.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -42,6 +46,10 @@
   },
   "overrides": {
     "rpc-websockets": "7.10.0",
-    "@solana/web3.js": "1.91.6"
+    "@solana/web3.js": "1.91.6",
+    "pino-pretty": "^13.0.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
