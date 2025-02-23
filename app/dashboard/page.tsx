@@ -40,10 +40,45 @@ export default function CreatePost() {
   const handleGenerate = async () => {
     setIsGenerating(true);
     // Simulate AI generation - replace with actual AI integration
-    setTimeout(() => {
-      setGeneratedImage("/generated-image.png");
+    // setTimeout(() => {
+    //   setGeneratedImage("/generated-image.png");
+    //   setIsGenerating(false);
+    // }, 2000);
+
+    const data = {
+      version:
+        "00430f0bd52a14f794e379250e0619c3ea882588ad118162e6e2f4391042329d",
+      input: {
+        model: "dev",
+        prompt: prompt,
+        go_fast: false,
+        lora_scale: 1,
+        megapixels: "1",
+        num_outputs: 1,
+        aspect_ratio: "1:1",
+        output_format: "webp",
+        guidance_scale: 3,
+        output_quality: 80,
+        prompt_strength: 0.8,
+        extra_lora_scale: 1,
+        num_inference_steps: 20,
+      },
+    };
+
+    try {
+      const res = await fetch("/api/replicate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+      console.log(result);
+      setGeneratedImage(result.output[0]);
       setIsGenerating(false);
-    }, 2000);
+    } catch (error) {
+      console.error("Error sending data:", error);
+    }
   };
 
   const handleShare = (platform: string) => {
