@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useAuth } from "@crossmint/client-sdk-react-ui";
@@ -20,13 +22,13 @@ export default function CampaignPage() {
     }
 
     return (
-      <div>
+      <div className="text-white">
         <h1>User</h1>
-        {/* <p>User ID: {user.userId}</p>
+        <p>User ID: {user.userId}</p>
         <p>Email: {user.email}</p>
         <p>Phone Number: {user.phoneNumber}</p>
         <p>Google Name: {user.google?.name}</p>
-        <p>Google Picture: {user.google?.picture}</p> */}
+        <p>Google Picture: {user.google?.picture}</p>
         <p>Farcaster FID: {user.farcaster?.fid}</p>
         <p>Farcaster Username: {user.farcaster?.username}</p>
         <p>Farcaster Bio: {user.farcaster?.bio}</p>
@@ -70,6 +72,8 @@ export default function CampaignPage() {
       className="min-h-full bg-cover bg-center"
       style={{ backgroundImage: "url('/gradient-background.jpg')" }}
     >
+      {/* <AuthButton /> */}
+
       {/* Hero Section */}
       <section className="container px-4 py-16 md:py-24 lg:py-32">
         <div className="mx-auto max-w-[800px] text-center">
