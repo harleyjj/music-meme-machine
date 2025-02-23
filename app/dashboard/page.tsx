@@ -225,7 +225,9 @@ export default function CreatePost() {
             <div className="rounded-lg border bg-gradient p-4">
               <div className="mb-2 flex items-center">
                 <Share2 className="mr-2 h-5 w-5 text-white" />
-                <span className="font-semibold text-white">Share on</span>
+                <span className="font-semibold text-white">
+                  Share it to earn 5 tokens
+                </span>
               </div>
               <div className="flex flex-wrap gap-3">
                 <TooltipProvider>

@@ -91,7 +91,7 @@ export default function CampaignPage() {
             Support your favorite artists and earn tokens for exclusive rewards
           </p>
           <Link
-            href="/artist-signup"
+            href="/artist"
             className="inline-flex items-center text-white hover:text-white/75 transition-colors gap-1.5"
           >
             <span className="underline underline-offset-4">
