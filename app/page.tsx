@@ -12,10 +12,20 @@ import {
   ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function CampaignPage() {
+  const { login, logout, user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user != null) {
+      router.push('/terms');
+    }
+  }, [user, router]);
+
   const User = () => {
-    const { user } = useAuth();
 
     if (!user) {
       return <div>Loading user...</div>;
@@ -41,28 +51,25 @@ export default function CampaignPage() {
   };
 
   const AuthButton = () => {
-    const { login, logout, user, jwt } = useAuth();
-
     return (
       <div className="flex gap-4">
         {user == null ? (
-          <button
-            type="button"
+          <Button
+            size="lg"
+            className="w-full text-lg text-black bg-gradient-to-r from-primary-500 to-primary-600 rounded-3xl"
             onClick={login}
-            className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
           >
-            Login
-          </button>
+            Understood, Let&apos;s Get Started
+          </Button>
         ) : (
-          <button
-            type="button"
+          <Button
+            size="lg"
+            className="w-full text-lg text-black bg-gradient-to-r from-primary-500 to-primary-600 rounded-3xl"
             onClick={logout}
-            className="bg-black text-white font-bold py-2 px-4 rounded border-2 border-blue-500"
           >
             Logout
-          </button>
+          </Button>
         )}
-        <User />
       </div>
     );
   };
@@ -204,14 +211,17 @@ export default function CampaignPage() {
       {/* CTA Section */}
       <section className="container px-4 py-16">
         <div className="mx-auto max-w-md text-center">
-          <Link href="/terms">
-            <Button
-              size="lg"
-              className="w-full text-lg text-black bg-gradient-to-r from-primary-500 to-primary-600 rounded-3xl"
-            >
-              Understood, Let&apos;s Get Started
-            </Button>
-          </Link>
+          <AuthButton />
+          {/* {user && (
+            <Link href="/terms">
+              <Button
+                size="lg"
+                className="w-full text-lg text-black bg-gradient-to-r from-primary-500 to-primary-600 rounded-3xl"
+              >
+                Understood, Let&apos;s Get Started
+              </Button>
+            </Link>
+          )} */}
         </div>
       </section>
     </div>

@@ -21,8 +21,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
+import { useAuth } from "@crossmint/client-sdk-react-ui";
 
 export default function CreatePost() {
+  const { logout } = useAuth();
   const [prompt, setPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
@@ -243,6 +245,16 @@ export default function CreatePost() {
               </div>
             </div>
           )}
+
+          <Separator className="my-8" />
+          
+          <Button
+            size="lg"
+            className="w-full text-lg text-black bg-gradient-to-r from-primary-500 to-primary-600 rounded-3xl"
+            onClick={logout}
+          >
+            Logout
+          </Button>
         </div>
       </div>
     </div>
