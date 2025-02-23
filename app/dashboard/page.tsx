@@ -28,6 +28,7 @@ export default function CreatePost() {
   const [prompt, setPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
+  const [activeData, setActiveData] = useState<"matcha" | "alice">("matcha");
 
   // Example music content - this would come from your data/props
   const musicContent = {
@@ -39,15 +40,16 @@ export default function CreatePost() {
     releaseDate: "2024",
   };
 
-  const handleGenerate = async () => {
+  const handleGenerate = async (value: "matcha" | "alice") => {
     setIsGenerating(true);
     // Simulate AI generation - replace with actual AI integration
     // setTimeout(() => {
     //   setGeneratedImage("/generated-image.png");
     //   setIsGenerating(false);
     // }, 2000);
+    let selectedData;
 
-    const data = {
+    const matchaData = {
       version:
         "00430f0bd52a14f794e379250e0619c3ea882588ad118162e6e2f4391042329d",
       input: {
@@ -67,15 +69,41 @@ export default function CreatePost() {
       },
     };
 
+    const aliceData = {
+      version:
+        "5a8f8fc1c97856135e339666ca8edcf8e3fde73a57cba4c236525a175fca7544",
+      input: {
+        model: "dev",
+        prompt: prompt,
+        go_fast: false,
+        lora_scale: 1,
+        megapixels: "1",
+        num_outputs: 1,
+        aspect_ratio: "1:1",
+        output_format: "webp",
+        guidance_scale: 3,
+        output_quality: 80,
+        prompt_strength: 0.8,
+        extra_lora_scale: 1,
+        num_inference_steps: 20,
+      },
+    };
+
+    if (value === "matcha") {
+      selectedData = matchaData;
+    } else {
+      selectedData = aliceData;
+    }
+
     try {
       const res = await fetch("/api/replicate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(selectedData),
       });
 
       const result = await res.json();
-      console.log(result);
+      console.log("result", result);
       setGeneratedImage(result.output[0]);
       setIsGenerating(false);
     } catch (error) {
@@ -135,6 +163,21 @@ export default function CreatePost() {
           <h1 className="mb-8 text-3xl font-bold text-primary-500">
             Create Your Music Meme
           </h1>
+          <p className="text-white mb-2">Active modal: {activeData}</p>
+          <div className="mb-5">
+            <Button
+              onClick={() => setActiveData("matcha")}
+              className="border border-white mr-2"
+            >
+              Matcha model
+            </Button>
+            <Button
+              onClick={() => setActiveData("alice")}
+              className="border border-white"
+            >
+              Alice model
+            </Button>
+          </div>
 
           {/* Prompt Input */}
           <Card className="mb-6 p-4 bg-transparent">
@@ -145,7 +188,7 @@ export default function CreatePost() {
               className="mb-4 min-h-[100px] resize-none bg-white"
             />
             <Button
-              onClick={handleGenerate}
+              onClick={() => handleGenerate(activeData)}
               disabled={!prompt || isGenerating}
               className="w-full bg-gradient-to-r from-primary-500 to-primary-600"
               size="lg"
@@ -247,7 +290,7 @@ export default function CreatePost() {
           )}
 
           <Separator className="my-8" />
-          
+
           <Button
             size="lg"
             className="w-full text-lg text-black bg-gradient-to-r from-primary-500 to-primary-600 rounded-3xl"
