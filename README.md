@@ -1,3 +1,21 @@
+This is MUSIC MEME GENERATOR
+
+Artists can create their own meme token and AI agents using their tracks, links and artwork
+
+
+
+Artists create ai agent with their links and artworks associated to tracks, sets, events.
+
+They create a token as well.
+
+
+Fans can use a artist agent's agent to generate related images and earn artist tokens for generating and sharing while also seeing the links for the artists.
+
+Helps fans become marketers for artists and earn.
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
