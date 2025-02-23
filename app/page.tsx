@@ -204,12 +204,14 @@ export default function CampaignPage() {
       {/* CTA Section */}
       <section className="container px-4 py-16">
         <div className="mx-auto max-w-md text-center">
-          <Button
-            size="lg"
-            className="w-full text-lg text-black bg-gradient-to-r from-primary-500 to-primary-600 rounded-3xl"
-          >
-            Understood, Let&apos;s Get Started
-          </Button>
+          <Link href="/terms">
+            <Button
+              size="lg"
+              className="w-full text-lg text-black bg-gradient-to-r from-primary-500 to-primary-600 rounded-3xl"
+            >
+              Understood, Let&apos;s Get Started
+            </Button>
+          </Link>
         </div>
       </section>
     </div>
